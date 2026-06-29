@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#FFF0F5">
+  <title>Сердечко ♡</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Caveat:wght@400;600&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Локальные стили для центрирования и анимации нового сердца во весь экран */
+    .heart-page {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: calc(100dvh - env(safe-area-inset-bottom) - 80px);
+      padding: 20px;
+    }
+
+    .heart-screen-wrapper {
+      width: 90vw;
+      max-width: 340px;
+      aspect-ratio: 1 / 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .heart-svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    /* Ритмичное сердцебиение (heartbeat из дизайн-системы) */
+    .heart-group-anim {
+      transform-origin: 100px 90px;
+      animation: heartbeat 2.4s infinite ease-in-out;
+    }
+
+    @keyframes heartbeat {
+      0% { transform: scale(1); }
+      12% { transform: scale(1.07); }
+      24% { transform: scale(1.02); }
+      36% { transform: scale(1.04); }
+      100% { transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SVG-фильтр sketch (используется для эффекта карандашного наброска) -->
+  <svg style="position: absolute; width: 0; height: 0;">
+    <defs>
+      <filter id="sketch" x="-10%" y="-10%" width="120%" height="120%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.055" numOctaves="4" seed="7" result="noise" />
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.2" xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+    </defs>
+  </svg>
+
+  <nav>
+    <a href="index.html"   class="nav-link">♡ Главная</a>
+    <a href="moments.html" class="nav-link">✦ Моменты</a>
+    <a href="letter.html"  class="nav-link">✉ Письмо</a>
+    <a href="heart.html"   class="nav-link active">♡ Сердечко</a>
+  </nav>
+
+  <!-- Только страница и только новое сердце -->
+  <main class="page heart-page">
+    <div class="heart-screen-wrapper">
+      
+      <svg class="heart-svg" viewBox="0 0 200 180">
+        <g class="heart-group-anim" filter="url(#sketch)">
+          
+          <!-- Маска для штриховки нового кастомного контура -->
+          <clipPath id="custom-heart-clip">
+            <path d="M100,55 C100,20 60,8 40,35 C15,68 45,115 100,160 C155,115 185,68 160,35 C140,8 100,20 100,55Z"/>
+          </clipPath>
+          
+          <!-- Диагональная штриховка (проявится после отрисовки линии) -->
+          <g clip-path="url(#custom-heart-clip)" id="shading-lines" style="opacity: 0.22; stroke: #D4799B; stroke-width: 1.4;"></g>
+
+          <!-- НОВОЕ СЕРДЦЕ: Основной проход (анимируется через JS) -->
+          <path id="heart-main-line" d="M100,55 C100,20 60,8 40,35 C15,68 45,115 100,160 C155,115 185,68 160,35 C140,8 100,20 100,55Z" 
+                fill="none" stroke="#D4799B" stroke-width="2.6" stroke-linecap="round"/>
+          
+          <!-- НОВОЕ СЕРДЦЕ: Второй смещенный пунктирный проход -->
+          <path id="heart-dash-line" d="M100,57 C100,22 61,10 41,37 C16,70 46,117 100,162 C154,117 184,70 159,37 C139,10 100,22 100,57Z" 
+                fill="none" stroke="#F2A7BE" stroke-width="1.1" stroke-dasharray="3 9" style="opacity: 0; transition: opacity 0.5s;"/>
+
+          <!-- Кончик «карандаша» -->
+          <circle id="pencil-dot" r="3.2" fill="#C96F92" style="opacity: 0;"/>
+        </g>
+      </svg>
+
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+
+  <!-- Индивидуальный скрипт отрисовки для этой страницы -->
+  <script>
+    const mainPath = document.getElementById('heart-main-line');
+    const dashPath = document.getElementById('heart-dash-line');
+    const pencil = document.getElementById('pencil-dot');
+    const pathLength = mainPath.getTotalLength();
+
+    mainPath.style.strokeDasharray = pathLength + ' ' + pathLength;
+    mainPath.style.strokeDashoffset = pathLength;
+
+    let start = null;
+    const duration = 2300; // 2300ms из дизайн-системы
+
+    function drawHeart(timestamp) {
+      if (!start) start = timestamp;
+      let progress = timestamp - start;
+      let t = Math.min(progress / duration, 1);
+      
+      // Кубический плавный ease-in-out
+      t = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+      mainPath.style.strokeDashoffset = pathLength - (t * pathLength);
+
+      const pt = mainPath.getPointAtLength(t * pathLength);
+      pencil.style.opacity = '1';
+      pencil.setAttribute('cx', pt.x);
+      pencil.setAttribute('cy', pt.y);
+
+      if (progress < duration) {
+        requestAnimationFrame(drawHeart);
+      } else {
+        pencil.style.opacity = '0';
+        dashPath.style.opacity = '1';
+        generateShading();
+      }
+    }
+
+    // Запуск анимации с небольшой задержкой после загрузки
+    setTimeout(() => requestAnimationFrame(drawHeart), 400);
+
+    // Отрисовка 12 диагональных линий штриховки
+    function generateShading() {
+      const group = document.getElementById('shading-lines');
+      for (let i = 0; i < 12; i++) {
+        const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        const xOffset = 15 + (i * 15);
+        line.setAttribute('x1', xOffset);
+        line.setAttribute('y1', '0');
+        line.setAttribute('x2', xOffset - 70);
+        line.setAttribute('y2', '170');
+        group.appendChild(line);
+      }
+    }
+  </script>
+</body>
+</html>
