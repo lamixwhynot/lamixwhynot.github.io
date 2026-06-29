@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#FFF0F5">
+  <title>Для тебя 🌸</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Caveat:wght@400;600&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <nav>
+    <a href="index.html"   class="nav-link active">♡ Главная</a>
+    <a href="moments.html" class="nav-link">✦ Моменты</a>
+    <a href="letter.html"  class="nav-link">✉ Письмо</a>
+    <a href="heart.html"  class="nav-link">♡ Сердечко</a>
+  </nav>
+
+  <!-- Floating petals -->
+  <div class="petals" aria-hidden="true">
+    <span>♡</span><span>❀</span><span>♡</span><span>❀</span><span>✿</span>
+    <span>❀</span><span>✿</span><span>❀</span><span>✿</span><span>♡</span>
+  </div>
+
+  <main class="page home-page">
+    <div class="hero">
+
+      <!-- ── Animated hand-drawn heart ── -->
+      <div class="heart-wrap" role="img" aria-label="анимированное сердце">
+  <svg class="heart-svg" viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="sketch" x="-15%" y="-15%" width="130%" height="130%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.055"
+          numOctaves="4" seed="7" result="noise"/>
+        <feDisplacementMap in="SourceGraphic" in2="noise"
+          scale="2.2" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+      <filter id="glow-fill" x="-30%" y="-30%" width="160%" height="160%">
+        <feGaussianBlur stdDeviation="8" result="b"/>
+        <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <filter id="soft" x="-5%" y="-5%" width="110%" height="110%">
+        <feGaussianBlur stdDeviation="0.5"/>
+      </filter>
+      <!-- контур сердца как маска для штриховки -->
+      <clipPath id="heart-clip">
+        <path d="M100,46 C100,26 78,13 57,22 C31,33 28,66 58,90 L100,133 L142,90 C172,66 169,33 143,22 C122,13 100,26 100,46Z"/>
+      </clipPath>
+    </defs>
+
+    <!-- мягкая заливка — появляется после отрисовки -->
+    <path id="heart-fill"
+      d="M100,46 C100,26 78,13 57,22 C31,33 28,66 58,90 L100,133 L142,90 C172,66 169,33 143,22 C122,13 100,26 100,46Z"
+      fill="rgba(242,167,190,0)" stroke="none"
+      filter="url(#glow-fill)"/>
+
+    <!-- карандашная штриховка внутри (клипирована по сердцу) -->
+    <g id="heart-shading" clip-path="url(#heart-clip)"
+       opacity="0" filter="url(#sketch)">
+      <line x1="-60" y1="20"  x2="260" y2="340" stroke="#F2A7BE" stroke-width="0.9"/>
+      <line x1="-60" y1="38"  x2="260" y2="358" stroke="#F2A7BE" stroke-width="0.9"/>
+      <line x1="-60" y1="56"  x2="260" y2="376" stroke="#F2A7BE" stroke-width="0.9"/>
+      <line x1="-60" y1="74"  x2="260" y2="394" stroke="#F2A7BE" stroke-width="0.9"/>
+      <line x1="-60" y1="92"  x2="260" y2="412" stroke="#F2A7BE" stroke-width="0.9"/>
+      <line x1="-60" y1="110" x2="260" y2="430" stroke="#F2A7BE" stroke-width="0.9"/>
+      <line x1="-60" y1="128" x2="260" y2="448" stroke="#F2A7BE" stroke-width="0.9"/>
+      <line x1="-60" y1="146" x2="260" y2="466" stroke="#F2A7BE" stroke-width="0.9"/>
+      <line x1="-60" y1="164" x2="260" y2="484" stroke="#F2A7BE" stroke-width="0.9"/>
+      <line x1="-60" y1="2"   x2="260" y2="322" stroke="#F2A7BE" stroke-width="0.9"/>
+    </g>
+
+    <!-- основной контур — анимируется -->
+    <path id="heart-path"
+      d="M100,46 C100,26 78,13 57,22 C31,33 28,66 58,90 L100,133 L142,90 C172,66 169,33 143,22 C122,13 100,26 100,46Z"
+      fill="none" stroke="#D4799B" stroke-width="2.6"
+      stroke-linecap="round" stroke-linejoin="round"
+      filter="url(#sketch)"/>
+
+    <!-- второй лёгкий пунктирный проход -->
+    <path id="heart-pass2"
+      d="M100,48 C100,28 79,15 58,24 C32,35 29,68 59,92 L100,135 L141,92 C171,68 168,35 142,24 C121,15 100,28 100,48Z"
+      fill="none" stroke="#F2A7BE" stroke-width="1.1"
+      stroke-linecap="round" stroke-dasharray="3 9"
+      opacity="0" filter="url(#sketch)"/>
+
+    <!-- кончик карандаша (движется по пути) -->
+    <circle id="pencil-tip" cx="100" cy="46" r="3.2"
+      fill="#C96F92" opacity="0" filter="url(#soft)"/>
+    <circle id="pencil-ring" cx="100" cy="46" r="6"
+      fill="none" stroke="#F2A7BE" stroke-width="1.2" opacity="0"/>
+  </svg>
+
+  <!-- искорки как HTML поверх SVG -->
+  <div class="sparks" id="sparks" aria-hidden="true">
+    <span class="sp sp1">✦</span>
+    <span class="sp sp2">✦</span>
+    <span class="sp sp3">✧</span>
+    <span class="sp sp4">✧</span>
+    <span class="sp sp5">✦</span>
+    <span class="sp sp6">✧</span>
+    <span class="sp sp7">✧</span>
+  </div>
+</div>
+
+      <!-- ── Text ── -->
+      <div>
+        <p class="hero-eyebrow">это для тебя,</p>
+        <h1 class="hero-name">Ладочка</h1>
+        <p class="hero-sub">потому что ты заслуживаешь<br>того чтобы быть рядом всегда&thinsp;♡</p>
+      </div>
+
+      <!-- ── Timer ── -->
+      <div class="timer-card">
+        <p class="timer-label">мы вместе уже</p>
+        <div class="timer-row">
+          <div class="t-unit">
+            <span class="t-num" id="days">000</span>
+            <span class="t-lbl">дней</span>
+          </div>
+          <span class="t-dot">·</span>
+          <div class="t-unit">
+            <span class="t-num" id="hours">00</span>
+            <span class="t-lbl">часов</span>
+          </div>
+          <span class="t-dot">·</span>
+          <div class="t-unit">
+            <span class="t-num" id="minutes">00</span>
+            <span class="t-lbl">минут</span>
+          </div>
+        </div>
+        <p class="timer-label">замечательных, прекрасных и лучших дней<br>в моей жизни</p>
+      </div>
+
+      <a href="moments.html" class="cta-btn">наши моменты →</a>
+
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

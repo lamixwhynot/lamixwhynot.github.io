@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#FFF0F5">
+  <title>Наши моменты ✦</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Caveat:wght@400;600&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <nav>
+    <a href="index.html"   class="nav-link">♡ Главная</a>
+    <a href="moments.html" class="nav-link active">✦ Моменты</a>
+    <a href="letter.html"  class="nav-link">✉ Письмо</a>
+        <a href="heart.html"  class="nav-link">♡ Сердечко</a>
+  </nav>
+
+  <main class="page moments-page">
+
+    <div class="page-head">
+      <h1 class="page-title">Наши моменты</h1>
+      <p class="page-sub">те, на которые я смотрю и сам того не понимаю<br>- улыбаюсь даже глазами</p>
+    </div>
+
+    <div class="grid">
+
+      <!--
+        📸  КАК ДОБАВИТЬ СВОИ ФОТО:
+        1. Создай папку  photos/  рядом с этим файлом
+        2. Скопируй туда свои фотографии
+        3. Раскомментируй тег <img ...> и замени путь
+        4. Закомментируй или удали блок <div class="ph">...</div>
+        5. Также замени текст в <div class="photo-caption">
+      -->
+
+      <!-- ФОТО 1 — широкое, занимает всю ширину -->
+      <div class="photo-card wide">
+        <img src="photos/photo1.jpg" alt="наш первый день">
+        <div class="ph">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none"
+               stroke="#D4799B" stroke-width="1.5" stroke-linecap="round">
+            <rect x="3" y="3" width="18" height="18" rx="3"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="M21 15l-5-5L5 21"/>
+          </svg>
+          <span>Замени на photos/photo1.jpg<br>(широкое фото — идеально для первого)</span>
+        </div>
+        <div class="photo-caption">наш первый день ♡</div>
+      </div>
+
+      <!-- ФОТО 2 -->
+      <div class="photo-card">
+        <img src="photos/photo2.jpg" alt="">
+        <div class="ph">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+               stroke="#D4799B" stroke-width="1.5" stroke-linecap="round">
+            <rect x="3" y="3" width="18" height="18" rx="3"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="M21 15l-5-5L5 21"/>
+          </svg>
+          <span>photos/<br>photo2.jpg</span>
+        </div>
+        <div class="photo-caption">счастливые</div>
+      </div>
+
+      <!-- ФОТО 3 -->
+      <div class="photo-card">
+        <img src="photos/photo3.jpg" alt="">
+        <div class="ph">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+               stroke="#D4799B" stroke-width="1.5" stroke-linecap="round">
+            <rect x="3" y="3" width="18" height="18" rx="3"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="M21 15l-5-5L5 21"/>
+          </svg>
+          <span>photos/<br>photo3.jpg</span>
+        </div>
+        <div class="photo-caption">моя любимая</div>
+      </div>
+
+      <!-- ФОТО 4 -->
+      <div class="photo-card">
+        <img src="photos/photo4.jpg" alt="">
+        <div class="ph">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+               stroke="#D4799B" stroke-width="1.5" stroke-linecap="round">
+            <rect x="3" y="3" width="18" height="18" rx="3"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="M21 15l-5-5L5 21"/>
+          </svg>
+          <span>photos/<br>photo4.jpg</span>
+        </div>
+        <div class="photo-caption">путешествие</div>
+      </div>
+
+      <!-- ФОТО 5 -->
+      <div class="photo-card">
+        <img src="photos/photo5.jpg" alt="">
+        <div class="ph">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+               stroke="#D4799B" stroke-width="1.5" stroke-linecap="round">
+            <rect x="3" y="3" width="18" height="18" rx="3"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="M21 15l-5-5L5 21"/>
+          </svg>
+          <span>photos/<br>photo5.jpg</span>
+        </div>
+        <div class="photo-caption">вместе</div>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
